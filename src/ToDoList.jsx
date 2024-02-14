@@ -29,6 +29,28 @@ export const ToDoList = () => {
     });
   };
 
+  const moveTaskUp = (index) => {
+    if (index > 0) {
+      const updatedTodoList = [...todoList];
+      [updatedTodoList[index], updatedTodoList[index - 1]] = [
+        updatedTodoList[index - 1],
+        updatedTodoList[index],
+      ];
+      setTodoList(updatedTodoList);
+    }
+  };
+
+  const moveTaskDown = (index) => {
+    if (index < todoList.length - 1) {
+      const updatedTodoList = [...todoList];
+      [updatedTodoList[index], updatedTodoList[index + 1]] = [
+        updatedTodoList[index + 1],
+        updatedTodoList[index],
+      ];
+      setTodoList(updatedTodoList);
+    }
+  };
+
   return (
     <div className="to-do-list">
       <h1>My Todo List</h1>
@@ -51,6 +73,15 @@ export const ToDoList = () => {
                 <span className="text">{task}</span>
                 <button className="del-btn" onClick={() => delTask(index)}>
                   DEL
+                </button>
+                <button className="up-btn" onClick={() => moveTaskUp(index)}>
+                  UP
+                </button>
+                <button
+                  className="down-btn"
+                  onClick={() => moveTaskDown(index)}
+                >
+                  DOWN
                 </button>
                 <button
                   className="chekced-btn"
