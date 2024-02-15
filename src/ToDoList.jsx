@@ -58,6 +58,10 @@ export const ToDoList = () => {
     }
   };
 
+  const clearAllTask = () => {
+    setTodoList(todoList.filter((task) => !task.completed));
+  };
+
   return (
     <div className="to-do-list">
       <h1>My Todo List</h1>
@@ -70,6 +74,9 @@ export const ToDoList = () => {
         />
         <button className="add-task-btn" onClick={addTask}>
           ADD
+        </button>
+        <button className="celar-all-task-btn" onClick={clearAllTask}>
+          CLEAR ALL
         </button>
       </div>
       <div className="task-tile">
