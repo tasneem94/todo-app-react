@@ -10,8 +10,12 @@ export const ToDoList = () => {
   };
 
   const addTask = () => {
+    const task = {
+      taskName: newTask,
+      completed: false,
+    };
     if (newTask.trim() !== "") {
-      setTodoList((prevTodoList) => [...prevTodoList, newTask]);
+      setTodoList((prevTodoList) => [...prevTodoList, task]);
       setNewTask("");
     }
   };
@@ -21,12 +25,15 @@ export const ToDoList = () => {
   };
 
   const checkedTask = (index) => {
-    todoList.map((_, i) => {
-      if (index === i) {
-        const text = document.querySelectorAll(".text")[index];
-        text.style.textDecoration = "line-through";
-      }
-    });
+    setTodoList(
+      todoList.map((task, i) => {
+        if (index === i) {
+          return { ...task, completed: true };
+        } else {
+          return task;
+        }
+      })
+    );
   };
 
   const moveTaskUp = (index) => {
@@ -70,7 +77,14 @@ export const ToDoList = () => {
           {todoList.map((task, index) => {
             return (
               <li key={index}>
-                <span className="text">{task}</span>
+                <span
+                  className="text"
+                  style={{
+                    textDecoration: task.completed ? "line-through" : "",
+                  }}
+                >
+                  {task.taskName}
+                </span>
                 <button className="del-btn" onClick={() => delTask(index)}>
                   DEL
                 </button>
