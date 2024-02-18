@@ -17,6 +17,9 @@ export const ToDoList = () => {
     if (newTask.trim() !== "") {
       setTodoList((prevTodoList) => [...prevTodoList, task]);
       setNewTask("");
+      setTodoList((prevTodoList) =>
+        prevTodoList.map((task) => ({ ...task, hidden: false }))
+      );
     }
   };
 
@@ -96,69 +99,77 @@ export const ToDoList = () => {
           value={newTask}
           onChange={handleInputChange}
         />
-        <button className="add-task-btn btn" onClick={addTask}>
+        <button className="add-task-btn" onClick={addTask}>
           ADD
         </button>
-        <button className="btn" onClick={showAllTask}>
-          SHOW ALL
-        </button>
-        <button className="btn" onClick={showCheckedTask}>
-          SHOW CHECKED
-        </button>
-        <button className="btn" onClick={showUncheckedTask}>
-          SHOW UNCHECKED
-        </button>
-        <button className="btn" onClick={clearCheckedTask}>
-          CLEAR CHECKED
-        </button>
-        <button className="btn" onClick={clearAllTask}>
-          CLEAR ALL
-        </button>
       </div>
+
       <div className="task-tile">
         <ul>
           {todoList.map((task, index) => {
             if (!task.hidden) {
               return (
-                <li key={index}>
-                  <span
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor: task.checked
+                      ? "hsl(67, 61%, 71%)"
+                      : "hsl(67, 100%, 90%)",
+                  }}
+                >
+                  <div
                     className="text"
                     style={{
                       textDecoration: task.checked ? "line-through" : "",
+                      color: task.checked ? "hsl(124, 40%, 44%)" : "",
                     }}
                   >
                     {task.taskName}
-                  </span>
-                  <button
-                    className="del-btn btn"
-                    onClick={() => delTask(index)}
-                  >
-                    DEL
-                  </button>
-                  <button
-                    className="up-btn btn"
-                    onClick={() => moveTaskUp(index)}
-                  >
-                    UP
-                  </button>
-                  <button
-                    className="down-btn btn"
-                    onClick={() => moveTaskDown(index)}
-                  >
-                    DOWN
-                  </button>
-                  <button
-                    className="chekced-btn btn"
-                    onClick={() => checkedTask(index)}
-                  >
-                    CHECKED
-                  </button>
+                  </div>
+                  <div className="btn-container">
+                    <button className="btn" onClick={() => checkedTask(index)}>
+                      ✅
+                    </button>
+
+                    <button className="btn" onClick={() => moveTaskUp(index)}>
+                      👆
+                    </button>
+                    <button className="btn" onClick={() => moveTaskDown(index)}>
+                      👇
+                    </button>
+                    <button className="btn" onClick={() => delTask(index)}>
+                      ❌
+                    </button>
+                  </div>
                 </li>
               );
             }
           })}
         </ul>
       </div>
+      {todoList.length > 0 && (
+        <>
+          <div className="show-btn-container">
+            <button className="btn" onClick={showAllTask}>
+              SHOW ALL
+            </button>
+            <button className="btn" onClick={showCheckedTask}>
+              SHOW CHECKED
+            </button>
+            <button className="btn" onClick={showUncheckedTask}>
+              SHOW UNCHECKED
+            </button>
+          </div>
+          <div className="clear-btn-container">
+            <button className="btn" onClick={clearCheckedTask}>
+              CLEAR CHECKED
+            </button>
+            <button className="btn" onClick={clearAllTask}>
+              CLEAR ALL
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
