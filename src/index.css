@@ -95,3 +95,21 @@ li {
   font-size: 12px;
   color: hsl(0, 0%, 35%);
 }
+
+.clear-btn-container .active-btn,
+.show-btn-container .active-btn {
+  color: hsl(224, 75%, 56%);
+  opacity: 100;
+}
+
+@media (min-width: 700px) {
+  .to-do-list {
+    width: 600px;
+  }
+  input {
+    width: 500px;
+  }
+  li {
+    width: 550px;
+  }
+}

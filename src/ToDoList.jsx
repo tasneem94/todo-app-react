@@ -3,6 +3,7 @@ import { useState } from "react";
 export const ToDoList = () => {
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [activeBtn, setActiveBtn] = useState(null);
 
   const handleInputChange = (e) => {
     setNewTask(e.target.value);
@@ -21,6 +22,7 @@ export const ToDoList = () => {
         prevTodoList.map((task) => ({ ...task, hidden: false }))
       );
     }
+    setActiveBtn("all");
   };
 
   const delTask = (index) => {
@@ -47,6 +49,10 @@ export const ToDoList = () => {
         updatedTodoList[index],
       ];
       setTodoList(updatedTodoList);
+      setTodoList((prevTodoList) =>
+        prevTodoList.map((task) => ({ ...task, hidden: false }))
+      );
+      setActiveBtn("all");
     }
   };
 
@@ -58,11 +64,16 @@ export const ToDoList = () => {
         updatedTodoList[index],
       ];
       setTodoList(updatedTodoList);
+      setTodoList((prevTodoList) =>
+        prevTodoList.map((task) => ({ ...task, hidden: false }))
+      );
+      setActiveBtn("all");
     }
   };
 
   const showAllTask = () => {
     setTodoList(todoList.map((task) => ({ ...task, hidden: false })));
+    setActiveBtn("all");
   };
 
   const showCheckedTask = () => {
@@ -71,6 +82,7 @@ export const ToDoList = () => {
         task.checked ? { ...task, hidden: false } : { ...task, hidden: true }
       )
     );
+    setActiveBtn("checked");
   };
 
   const showUncheckedTask = () => {
@@ -79,6 +91,7 @@ export const ToDoList = () => {
         task.checked ? { ...task, hidden: true } : { ...task, hidden: false }
       )
     );
+    setActiveBtn("unchecked");
   };
 
   const clearCheckedTask = () => {
@@ -150,13 +163,22 @@ export const ToDoList = () => {
       {todoList.length > 0 && (
         <>
           <div className="show-btn-container">
-            <button className="btn" onClick={showAllTask}>
+            <button
+              className={`btn ${activeBtn === "all" ? "active-btn" : ""}`}
+              onClick={showAllTask}
+            >
               SHOW ALL
             </button>
-            <button className="btn" onClick={showCheckedTask}>
+            <button
+              className={`btn ${activeBtn === "checked" ? "active-btn" : ""}`}
+              onClick={showCheckedTask}
+            >
               SHOW CHECKED
             </button>
-            <button className="btn" onClick={showUncheckedTask}>
+            <button
+              className={`btn ${activeBtn === "unchecked" ? "active-btn" : ""}`}
+              onClick={showUncheckedTask}
+            >
               SHOW UNCHECKED
             </button>
           </div>
