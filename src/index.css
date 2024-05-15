@@ -17,7 +17,7 @@ body {
 }
 
 h1 {
-  margin: 20px 0;
+  margin: 40px 0 20px 0;
   color: hsl(126, 55%, 11%);
 }
 
@@ -102,6 +102,15 @@ li {
   opacity: 100;
 }
 
+.intro-msg {
+  text-align: center;
+  color: hsl(124, 68%, 21%);
+  font-weight: bolder;
+  font-size: 1.2rem;
+  margin-top: 100px;
+  line-height: 30px;
+}
+
 @media (min-width: 700px) {
   .to-do-list {
     width: 600px;
@@ -111,5 +120,9 @@ li {
   }
   li {
     width: 550px;
+  }
+  .intro-msg {
+    font-size: 1.5rem;
+    line-height: 40px;
   }
 }

@@ -39,6 +39,10 @@ export const ToDoList = () => {
         }
       })
     );
+    setTodoList((prevTodoList) =>
+      prevTodoList.map((task) => ({ ...task, hidden: false }))
+    );
+    setActiveBtn("all");
   };
 
   const moveTaskUp = (index) => {
@@ -108,7 +112,7 @@ export const ToDoList = () => {
       <div className="add-task">
         <input
           type="text"
-          placeholder="Enter as task"
+          placeholder="Enter a task"
           value={newTask}
           onChange={handleInputChange}
         />
@@ -191,6 +195,14 @@ export const ToDoList = () => {
             </button>
           </div>
         </>
+      )}
+      {todoList.length === 0 && (
+        <p className="intro-msg">
+          No task found. <br />
+          Seems you are free! 😃 <br />
+          otherwise, <br />
+          Let's get started! 😎
+        </p>
       )}
     </div>
   );
